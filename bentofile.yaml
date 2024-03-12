@@ -1,0 +1,13 @@
+service: "service:svc"
+labels:
+  owner: bentoml-team
+  project: gallery
+include:
+  - "service.py"
+exclude:
+  - venv/
+python:
+  packages:
+    - xgboost
+    - mlflow
+    - boto3
