@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: bentoml setup
         uses: bentoml/setup-bentoml-action@v1
@@ -30,7 +30,7 @@ jobs:
           docker_image_name: my_model_image
       
       - name: Install doctl
-        uses: digitalocean/action-doctl@v2
+        uses: digitalocean/action-doctl@v3
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
         
