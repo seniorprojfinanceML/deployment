@@ -21,6 +21,8 @@ jobs:
       
       - name: Install Dependencies
         run: pip install -r linux_requirements.txt
+        with:
+          cache: 'pip'
         
       - name: build the bento
         uses: bentoml/build-bento-action@v1
@@ -32,8 +34,7 @@ jobs:
         id: containerize
         uses: bentoml/containerize-action@v1
         with:
-          bento_bundle_path: ${{ steps.bento.outputs.bento_bundle_path }}
-          docker_image_name: my_model_image
+          bento-tag: ${{ steps.bento.outputs.bento-tag }}
       
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
