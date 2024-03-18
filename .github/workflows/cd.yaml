@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  # Triggers the workflow on push events
+  push:
+    branches: [ main ]
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+
+      - name: bentoml setup
+      - uses: bentoml/setup-bentoml-action@v1
+        with:
+          python-version: '3.10'
+          bentoml-version: 'main'
+      
+      - name: build the bento
+      - uses: bentoml/build-bento-action@v1
+        id: bento
+
+      - name: BentoML Containerize
+      id: containerize
+      uses: bentoml/containerize-action@v1
+      with:
+        bento_bundle_path: ${{ steps.bento.outputs.bento_bundle_path }}
+        docker_image_name: my_model_image
+      
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        
+      - name: Log in to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
+      
+      - name: Tag image
+        run:
+          docker tag ${{ steps.containerize.outputs.bento_id }} registry.digitalocean.com/test-ml-container/c6prhswwdw76lc4z
+      
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push registry.digitalocean.com/test-ml-container/c6prhswwdw76lc4z
