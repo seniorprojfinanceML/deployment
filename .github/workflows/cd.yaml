@@ -28,7 +28,6 @@ jobs:
           URL: ${{ secrets.URL }}
 
       - name: BentoML Containerize
-        id: containerize
         uses: bentoml/containerize-action@v1
         with:
           bento-tag: ${{ steps.bento.outputs.bento-tag }}
@@ -43,7 +42,7 @@ jobs:
       
       - name: Tag image
         run:
-          docker tag xgboostservice:latest registry.digitalocean.com/test-ml-container/c6prhswwdw76lc4z
+          docker tag ${{ steps.bento.outputs.bento-tag }} registry.digitalocean.com/test-ml-container/c6prhswwdw76lc4z
       
       - name: Push image to DigitalOcean Container Registry
         run: docker push registry.digitalocean.com/test-ml-container/c6prhswwdw76lc4z
