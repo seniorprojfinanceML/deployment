@@ -17,7 +17,11 @@ jobs:
         with:
           python-version: '3.10'
           bentoml-version: 'main'
+          cache: 'pip'
       
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+        
       - name: build the bento
         uses: bentoml/build-bento-action@v1
         id: bento
