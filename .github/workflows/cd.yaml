@@ -25,6 +25,8 @@ jobs:
       - name: build the bento
         uses: bentoml/build-bento-action@v1
         id: bento
+        env:
+          URL: ${{ secrets.URL }}
 
       - name: BentoML Containerize
         id: containerize

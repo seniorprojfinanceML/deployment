@@ -2,10 +2,11 @@ import bentoml
 from bentoml.io import NumpyNdarray
 import mlflow
 import numpy as np
-from dotenv import dotenv_values
+import os
+
 svc = bentoml.Service("XGBoostService")
-URI = dotenv_values("mlflow.env")["URI"]
-mlflow.set_tracking_uri(URI)
+URL = os.environ.get('URL')
+mlflow.set_tracking_uri(URL)
 
 @svc.api(input=NumpyNdarray(), output=NumpyNdarray()) 
 def predict(data: np.ndarray) :
