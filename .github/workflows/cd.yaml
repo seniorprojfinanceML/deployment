@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: bentoml setup
-        uses: bentoml/setup-bentoml-action@v2
+        uses: bentoml/setup-bentoml-action@v1
         with:
           python-version: '3.10'
           bentoml-version: 'main'
