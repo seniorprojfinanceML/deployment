@@ -13,9 +13,9 @@ def predict_xgboost(data) :
     if 'input' not in data:
         raise ValueError("input is not provided")
     model_name = 'xgr'
-    uri = f"models:/{model_name}@production"
     if 'model' in data:
         model_name = data['model']
+    uri = f"models:/{model_name}@production"
     if 'alias' in data:
         uri = f"models:/{model_name}@{data['alias']}"
     elif 'version' in data:
