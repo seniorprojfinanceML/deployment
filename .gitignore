@@ -10,6 +10,7 @@ venv/
 mlruns/
 testloadmodel.py
 mlflow.env
+test.py
 
 # Distribution / packaging
 .Python
