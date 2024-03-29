@@ -11,3 +11,4 @@ python:
     - xgboost
     - mlflow
     - boto3
+    - catboost
