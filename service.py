@@ -30,7 +30,7 @@ def predict_xgboost(data) :
     # return np.zeros(shape=2)
 
 @svc.api(input=JSON(), output=NumpyNdarray()) 
-def predict_xgboost(data) :
+def predict(data) :
     if 'input' not in data:
         raise ValueError("input is not provided")
     if 'model' in data:
