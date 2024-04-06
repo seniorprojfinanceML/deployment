@@ -45,3 +45,5 @@ def predict(data) :
     model = mlflow.pyfunc.load_model(uri)
     prediction = model.predict(data["input"])
     return prediction
+
+# a trigger
