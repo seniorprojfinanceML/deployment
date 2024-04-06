@@ -46,4 +46,4 @@ def predict(data) :
     prediction = model.predict(data["input"])
     return prediction
 
-# a trigger
+# a trigger to start the service
