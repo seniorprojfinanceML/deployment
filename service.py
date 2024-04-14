@@ -22,6 +22,7 @@ def predict_xgboost(data) :
         uri = f"models:/{model_name}/{data['version']}"
     model = mlflow.xgboost.load_model(uri)
     prediction = model.predict(data["input"])
+    del model
     # model_name = "xgr"
     
     # # model = mlflow.pyfunc.load_model(uri)
@@ -44,6 +45,7 @@ def predict(data) :
         uri = f"models:/{model_name}/{data['version']}"
     model = mlflow.pyfunc.load_model(uri)
     prediction = model.predict(data["input"])
+    del model
     return prediction
 
 # a trigger to start the service
