@@ -1,5 +1,5 @@
 import bentoml
-from bentoml.io import JSON, NumpyNdarray
+from bentoml.io import JSON, NumpyNdarray, Text
 import mlflow
 import numpy as np
 import os
@@ -49,3 +49,21 @@ def predict(data) :
     return prediction
 
 # a trigger to start the service
+
+@svc.api(input=JSON(), output=Text()) 
+def predict_checkdata(data) :
+    if 'input' not in data:
+        raise ValueError("input is not provided")
+    if 'model' in data:
+        model_name = data['model']
+    else:
+        raise ValueError("model is not provided")
+    uri = f"models:/{model_name}@production"
+    if 'alias' in data:
+        uri = f"models:/{model_name}@{data['alias']}"
+    elif 'version' in data:
+        uri = f"models:/{model_name}/{data['version']}"
+    model = mlflow.pyfunc.load_model(uri)
+    model_name = str(model)
+    del model
+    return model_name
