@@ -6,6 +6,7 @@ include:
   - "service.py"
 exclude:
   - venv/
+  - __pycache__/
 python:
   packages:
     - xgboost
