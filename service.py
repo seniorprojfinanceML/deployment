@@ -46,7 +46,9 @@ def predict(data) :
     model = mlflow.pyfunc.load_model(uri)
     prediction = model.predict(data["input"])
     del model
-    return prediction
+    prediction_copy = np.copy(prediction)
+    prediction = None
+    return prediction_copy
 
 # a trigger to start the service
 
