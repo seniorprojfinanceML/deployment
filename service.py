@@ -3,6 +3,7 @@ from bentoml.io import JSON, NumpyNdarray, Text
 import mlflow
 import numpy as np
 import os
+import gc
 
 svc = bentoml.Service("XGBoostService")
 URL = os.environ.get('URL')
@@ -45,9 +46,10 @@ def predict(data) :
         uri = f"models:/{model_name}/{data['version']}"
     model = mlflow.pyfunc.load_model(uri)
     prediction = model.predict(data["input"])
-    del model
     prediction_copy = np.copy(prediction)
     prediction = None
+    del model
+    gc.collect()
     return prediction_copy
 
 # a trigger to start the service
